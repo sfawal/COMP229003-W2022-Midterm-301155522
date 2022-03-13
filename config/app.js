@@ -4,23 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-//Database setup
-let mongoose = require('mongoose');
-let dbURI = require('./db');
-
-// Connect to the Database
-mongoose.connect(dbURI.AtlasDB);
-
-let mongoDB = mongoose.connection;
-mongoDB.on('error', console.error.bind(console, 'Connection Error:'));
-mongoDB.once('open', ()=>{
-  console.log('Connected to MongoDB...');
-});
-
+// Get the route modules
 var indexRouter = require('../routes/index');
 var movieRouter = require('../routes/movie');
 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));

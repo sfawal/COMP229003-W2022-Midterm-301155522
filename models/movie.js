@@ -1,3 +1,7 @@
+// File name: models/movie.js
+// Student name: Syeda Fawal
+// Student Id: 301155522
+// Date: March 12, 2022
 
 let mongoose = require('mongoose');
 

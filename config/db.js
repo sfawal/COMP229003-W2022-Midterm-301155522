@@ -1,5 +1,5 @@
 // For production environment never expose your connection string.
-let URI = "mongodb+srv://dbadmin:ylR8Z4WxKDrk2Bl5@clusters003.amfry.mongodb.net/mydb?retryWrites=true&w=majority"
+let URI = "mongodb+srv://dbadmin:ylR8Z4WxKDrk2Bl5@cluster003midterm.9jee6.mongodb.net/mydb?retryWrites=true&w=majority"
 
 //Database setup
 let mongoose = require('mongoose');

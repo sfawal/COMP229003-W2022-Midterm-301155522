@@ -3,15 +3,17 @@ let Movie = require('../models/movie');
 
 // Gets all movies from the Database and renders the page to list all movies.
 module.exports.movieList = function(req, res, next) {  
+    
     Movie.find((err, movieList) => {
-        // console.log(movieList);
         if(err)
         {
             return console.error(err);
         }
         else
         {
-            res.render('movie/list', {
+            res.render(
+                'movie/list', 
+                {
                 title: 'Movie List', 
                 movies: movieList
             })            
@@ -44,18 +46,18 @@ module.exports.details = (req, res, next) => {
 // Renders the Add form using the add_edit.ejs template
 module.exports.displayAddPage = (req, res, next) => {
     
-    let newItem = Movie();
+    let newMovie = Movie();
 
     res.render('movie/add_edit', {
-        title: 'Add a new Item',
-        item: newItem, 
+        title: 'Add a new movie',
+        movie: newMovie, 
     })       
 }
 
 // Processes the data submitted from the Add form to create a new movie
 module.exports.processAddPage = (req, res, next) => {
 
-    let newItem = Movie({
+    let newMovie = Movie({
         _id: req.body.id,
         Title: req.body.title,
         Synopsis: req.body.synopsis,
@@ -64,7 +66,7 @@ module.exports.processAddPage = (req, res, next) => {
         Genre: req.body.genre,
     });
 
-    Movie.create(newItem, (err, item) =>{
+    Movie.create(newMovie, (err, movie) =>{
         if(err)
         {
             console.log(err);
@@ -73,7 +75,7 @@ module.exports.processAddPage = (req, res, next) => {
         else
         {
             // refresh the book list
-            console.log(item);
+            console.log(movie);
             res.redirect('/movie/list');
         }
     });
@@ -84,7 +86,7 @@ module.exports.processAddPage = (req, res, next) => {
 module.exports.displayEditPage = (req, res, next) => {
     let id = req.params.id;
 
-    Movie.findById(id, (err, itemToEdit) => {
+    Movie.findById(id, (err, movieToEdit) => {
         if(err)
         {
             console.log(err);
@@ -94,12 +96,11 @@ module.exports.displayEditPage = (req, res, next) => {
         {
             //show the edit view
             res.render('movie/add_edit', {
-                title: 'Edit Item', 
-                item: itemToEdit,
+                title: 'Edit movie', 
+                movie: movieToEdit,
             })
         }
     });
-    
 
 }
 
@@ -107,7 +108,7 @@ module.exports.displayEditPage = (req, res, next) => {
 module.exports.processEditPage = (req, res, next) => {
     let id = req.params.id
 
-    let updatedItem = Movie({
+    let updatedmovie = Movie({
         _id: req.body.id,
         Title: req.body.title,
         Synopsis: req.body.synopsis,
@@ -116,9 +117,9 @@ module.exports.processEditPage = (req, res, next) => {
         Genre: req.body.genre,
     });
 
-    // console.log(updatedItem);
+    // console.log(updatedmovie);
 
-    Inventory.updateOne({_id: id}, updatedItem, (err) => {
+    Inventory.updateOne({_id: id}, updatedmovie, (err) => {
         if(err)
         {
             console.log(err);
